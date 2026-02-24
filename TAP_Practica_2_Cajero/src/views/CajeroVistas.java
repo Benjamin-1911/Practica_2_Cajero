@@ -23,7 +23,7 @@ public class CajeroVistas {
             System.out.println("\n1. Ver saldo");
             System.out.println("2. Retirar dinero");
             System.out.println("3. Depositar dinero");
-            System.out.println("4. Salir");
+            System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
        
        return objeTeclado.nextInt();

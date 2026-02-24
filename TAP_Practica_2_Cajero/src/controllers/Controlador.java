@@ -24,8 +24,8 @@ public class Controlador {
             vista.enviarMensaje("Ingrese su PIN: ");
             String PIN = vista.pedirDato(String.class);
             
-            for (int i = 0; i < modelo.getUsuarios().length; i++) {
-                if (modelo.getUsuarios()[i].equals(PIN)) {
+            for (int i = 0; i < modelo.getListaUsuarios().size(); i++) {
+                if (modelo.getUsuarios(i).equals(PIN)) {
                     usuarioActual = i;
                     break;
                 }
@@ -45,21 +45,21 @@ public class Controlador {
     }
     
     public void menuPrincipal(){
-        vista.enviarMensaje("Bienvenido, " + modelo.getNombres()[usuarioActual]);
+        vista.enviarMensaje("Bienvenido, " + modelo.getNombres(usuarioActual));
         int opcion;
         
         do {
         opcion = vista.mostrarMenu();
         switch (opcion){
             case 1:
-                vista.enviarMensaje("Su saldo es: $" + modelo.getSaldos()[usuarioActual]);
+                vista.enviarMensaje("Su saldo es: $" + modelo.getSaldos(usuarioActual));
                 break;
             case 2:
                 vista.enviarMensaje("Ingrese cantidad a retirar: ");
                 Double retiro = vista.pedirDato(Double.class);
                 
                     if (modelo.retiro (retiro, usuarioActual)){
-                        vista.enviarMensaje("Retiro exitoso. Nuevo saldo: $" + modelo.getSaldos()[usuarioActual]);
+                        vista.enviarMensaje("Retiro exitoso. Nuevo saldo: $" + modelo.getSaldos(usuarioActual));
                     }
                     else   
                         vista.enviarMensaje("Fondos insuficientes.");
@@ -70,9 +70,9 @@ public class Controlador {
                 
                 modelo.deposito(deposito, usuarioActual);
                 
-                vista.enviarMensaje("Depósito exitoso. Nuevo saldo: $" + modelo.getSaldos()[usuarioActual]);
+                vista.enviarMensaje("Depósito exitoso. Nuevo saldo: $" + modelo.getSaldos(usuarioActual));
                 break;
-            case 4:
+            case 0:
                 vista.enviarMensaje("Gracias por usar el cajero.");
                 break;
             default:
@@ -80,7 +80,7 @@ public class Controlador {
                 break;
         }
         }
-        while (opcion != 4);
+        while (opcion != 0);
         }
     }
     
