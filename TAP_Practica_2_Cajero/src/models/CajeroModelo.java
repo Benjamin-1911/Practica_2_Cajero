@@ -3,6 +3,7 @@ package models;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import models.strategies.*;
 
 public class CajeroModelo {
     
@@ -34,12 +35,19 @@ public class CajeroModelo {
         }
         
         public boolean retiro(double retiro, int usuarioActual){
-                if (retiro <= listaSaldos.get(usuarioActual)) { //Verifica la cantidad de dinero
+                ComisionStrategy estrategia =
+                ComisionSelector.obtenerEstrategia();
+
+                double montoFinal = estrategia.aplicarComision(retiro);
+
+                if (montoFinal <= listaSaldos.get(usuarioActual)) {
+
                     double saldoActual = listaSaldos.get(usuarioActual);
-                    saldoActual -= retiro;
+                    saldoActual -= montoFinal;
                     listaSaldos.set(usuarioActual, saldoActual);
                     return true;
-                } else {
+                } 
+                else {
                     return false;
                 }
         }
